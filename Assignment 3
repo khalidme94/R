@@ -1,0 +1,90 @@
+#Starter code
+link <- 'https://github.com/gumdropsteve/datasets/raw/master/deck.csv'
+deck <- read.csv(link)
+deck$value[deck$face=='ace' ]=11
+deck
+#1-
+#i- create the 32 cards
+new_deck<- deck[deck$value >=7,  ]
+new_deck
+
+#ii- shaffale
+shuffle <- function(deck){ 
+ shuffled_deck <- deck[sample(nrow(deck)),] 
+ shuffled_deck
+}
+ 
+
+#2-
+deal_cards <- function(cards){
+  cards <- cards[sample(nrow(cards) , 13,  replace= FALSE ),]
+  print('cards')
+  print(cards)
+  player1 <<- cards[1:3 , ]
+  print('player1 ')
+  print(player1)
+  player2 <<- cards[4:6, ]
+  print('player 2 ')
+  print(player2)
+  player3 <<- cards[7:9, ]
+  print('player 3 ')
+  print(player3)
+  dealer <<- cards[10:12, ]
+  print('dealer  ')
+  print(dealer)
+  
+  onTheBoard <<- cards[13, ]
+  print('onTheBoard  ')
+  print(onTheBoard)
+  
+}
+
+shuffled_deck = shuffle(new_deck)
+shuffled_deck
+deal_cards(shuffled_deck) 
+
+
+#3- 
+# sun points
+new_deck
+sun<- new_deck
+sun
+
+sun$value[sun$face=='seven' ] =0
+sun$value[ sun$face=='eight' ] =0
+sun$value[sun$face=='king' ] =4
+sun$value[ sun$face=='queen' ] =4
+sun$value[ sun$face=='jack' ] =2
+sun
+
+# hukum points
+hukum=sun
+hukum$value[ hukum$face=='jack' ] =20
+hukum$value[ hukum$face=='nine' ] =14
+hukum
+
+#the game mode sun or hukum
+game_mode="sun"
+ 
+#we assume the round means that all players plays all cards they have
+rounds = function(p1,p2,p3,p4){
+ round1=data.frame()
+  for(i in  1:4){
+    p1  <- p1[sample(nrow(p1) , 1,  replace= FALSE ),]
+     
+    round1=  data.frame(rbind(round1 , p1)) 
+    p2  <- p2[sample(nrow(p2) , 1,  replace= FALSE ),]
+     
+    round1=  data.frame(rbind(round1 , p2)) 
+    p3  <- p3[sample(nrow(p3) , 1,  replace= FALSE ),]
+     
+    round1=  data.frame(rbind(round1 , p3)) 
+    p4  <- p4[sample(nrow(p4) , 1,  replace= FALSE ),]
+
+    round1=  data.frame(rbind(round1 , p4)) 
+     
+  }
+  round1
+}
+
+rounds(player1,player2,player3,dealer)
